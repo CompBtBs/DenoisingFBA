@@ -9,11 +9,11 @@
  -the metabolic fluxes computering using Flux Balance Analysis (FBA)
  
  To run the codes you need to install:
- - Scanpy
- - Cobrapy
- -MAGIC denoiser
- -ENHANCE scripts
- -SAVER (R-based)
+ * Scanpy
+ * Cobrapy
+ * MAGIC denoiser
+ * ENHANCE scripts
+ * SAVER (R-based)
  
  We provided an R script to run the SAVER denoiser.
  
