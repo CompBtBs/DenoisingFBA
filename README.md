@@ -17,4 +17,4 @@
  
  We provided an R script to run the SAVER denoiser.
  
- The notebook "workflow can be used to compute both RAS from transcriptional data and single cell Flux Balance Analysis
+ The notebook "workflow" can be used to compute both RAS from transcriptional data and single cell Flux Balance Analysis
