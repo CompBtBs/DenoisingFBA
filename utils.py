@@ -1,5 +1,4 @@
 #load libraries
-from scipy.stats import ttest_ind,mannwhitneyu,ks_2samp
 import scanpy as sc
 import pandas as pd 
 from sklearn import metrics 
@@ -12,7 +11,6 @@ import itertools
 import cobra as cb
 import matplotlib.pyplot as plt
 import scipy
-import multiprocessing
 
 cb.Configuration.solver="glpk"
 cb.Configuration().tolerance=1E-07
