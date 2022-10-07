@@ -228,8 +228,7 @@ def scFBA(model,ras_adata,dfFVA,eps=0,verbose=False):
             dfOpt[cell]=opt.fluxes
             if verbose:
                 print(opt.objective_value)
-        else:  
-            dfOpt[cell]=0
+
         if not verbose and i % each_count==0:
             print(i,cell)   
         i=i+1
