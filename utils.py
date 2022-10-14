@@ -311,7 +311,96 @@ def plot_two_reaction_correlation(adatasets,reactions):
         plt.title("".join(['r: ',str(np.round(r1,2)),", ",'p: ',str(np.round(p,4)) ]))
 
         i=i+1
+
+def plot_two_reaction_correlation_ba(adatasets_before,adatasets_after,reactions,fontsize=20,figsize=(20,30)):
+    plt.rcParams.update({'font.size': fontsize})
+    fig,axes=plt.subplots(3,2,figsize= figsize)
+    
+    
+    name_legend1=["Wildtype","Normal","PBMC"]
+    name_legend2=["Metformin","IFP","Tumor"]
+    
+    i=0
+    for adata in adatasets_before:
+        if i==1: 
+            groupby="countmatrix_Factor Value[disease]"
+        else:
+            groupby="countmatrix_Type" 
+
+        df=adata.to_df()
+        df["type"]=adata.obs[groupby].values
+
+        names=list(set(adata.obs[groupby].values))
+
+        df1=df.loc[:,reactions[0]]
+        df2=df.loc[:,reactions[1]]
+
+        names1=df["type"][df["type"]==names[0]].index
+        names2=df["type"][df["type"]==names[1]].index
+
+        r1, p = scipy.stats.pearsonr(df1.values,df2.values)
+
+        if i==1:
+            if names[0]=="idiopathic pulmonary fibrosis":
+                names[0]="IFP"
+            if names[1]=="idiopathic pulmonary fibrosis":
+                names[1]="IFP"
+
+        axes[i,0].scatter(df1.loc[names1].values,df2.loc[names1].values,label=names[0])
+        axes[i,0].scatter(df1.loc[names2].values,df2.loc[names2].values,label=names[1])
+        axes[i,0].set_xlabel(reactions[0])
+        axes[i,0].set_ylabel(reactions[1])
+        axes[i,0].grid()
+        axes[i,0].set_title("".join(['r: ',str(np.round(r1,2)) ]))
+        axes[i,0].legend(loc ="upper right")
+        i=i+1
+
+    i=0
+    for adata in adatasets_after:
+        if i==1: 
+            groupby="countmatrix_Factor Value[disease]"
+        else:
+            groupby="countmatrix_Type" 
+
+        df=adata.to_df()
+        df["type"]=adata.obs[groupby].values
+
+        names=list(set(adata.obs[groupby].values))
+
+        df1=df.loc[:,reactions[0]]
+        df2=df.loc[:,reactions[1]]
+
+        names1=df["type"][df["type"]==names[0]].index
+        names2=df["type"][df["type"]==names[1]].index
+
+        r1, p = scipy.stats.pearsonr(df1.values,df2.values)
+
         
+        if i==1:
+            if names[0]=="idiopathic pulmonary fibrosis":
+                names[0]="IFP"
+            if names[1]=="idiopathic pulmonary fibrosis":
+                names[1]="IFP"
+                
+        axes[i,1].scatter(df1.loc[names1].values,df2.loc[names1].values,label=names[0])
+        axes[i,1].scatter(df1.loc[names2].values,df2.loc[names2].values,label=names[1])            
+        
+
+        axes[i,1].set_xlabel(reactions[0])
+        axes[i,1].set_ylabel(reactions[1])
+        axes[i,1].grid()
+        axes[i,1].set_title("".join(['r: ',str(np.round(r1,2)) ]))
+        axes[i,1].legend(loc ="upper right")
+        i=i+1        
+    
+    
+    axes[0,0].annotate("Raw RAS", xy=(0.35, 1.2), xycoords="axes fraction",fontsize=35)
+    axes[0,1].annotate("RAS after MAGIC", xy=(0.3, 1.2), xycoords="axes fraction",fontsize=35)
+    
+    
+    axes[0,0].annotate("GSE110949", xy=(-0.3, 1.05), xycoords="axes fraction",fontsize=30)
+    axes[1,0].annotate("E-GEOD-86618", xy=(-0.3, 1.05), xycoords="axes fraction",fontsize=30)
+    axes[2,0].annotate("GSE118056", xy=(-0.3, 1.05), xycoords="axes fraction",fontsize=30)
       
 def table_sparsity(adatasets_countmatrix,adatasets_rasmatrix,names_datasets):
     
