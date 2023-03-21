@@ -223,11 +223,11 @@ def scFBA(model,ras_adata,dfFVA,eps=0,verbose=False):
                         model2.reactions.get_by_id(reaction).lower_bound=valMin
                         model2.reactions.get_by_id(reaction).upper_bound=valMax
 
-            model2.solver.configuration.timeout=5
-            opt=model2.optimize()
-            dfOpt[cell]=opt.fluxes
-            if verbose:
-                print(opt.objective_value)
+        model2.solver.configuration.timeout=5
+        opt=model2.optimize()
+        dfOpt[cell]=opt.fluxes
+        if verbose:
+            print(opt.objective_value)
 
         if not verbose and i % each_count==0:
             print(i,cell)   
